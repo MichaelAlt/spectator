@@ -13,7 +13,10 @@ export function initialSpectatorDirectiveModule<D, H>(options: Required<Spectato
   if (options.declareDirective) {
     declareInModule(moduleMetadata, options.directive);
   }
-  moduleMetadata.declarations.push(options.host);
+
+  if (!isStandalone(options.host)) {
+      moduleMetadata.declarations.push(options.host);
+  }
 
   moduleMetadata.schemas = [options.shallow ? NO_ERRORS_SCHEMA : options.schemas || []];
 
